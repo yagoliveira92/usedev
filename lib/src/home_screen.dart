@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:usedev/src/viewmodels/cubit/get_products_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +25,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Placeholder(),
+      body: BlocBuilder<GetProductsCubit, GetProductsState>(
+        builder: (context, state) {
+          if (state is GetProductsLoading) {
+            return CircularProgressIndicator();
+          }
+          if (state is GetProductsSuccess) {
+            return ListView.builder(
+              itemCount: state.products.length,
+              itemBuilder: (context, index) =>
+                  Text(state.products[index].title ?? ''),
+            );
+          }
+          return SizedBox.shrink();
+        },
+      ),
     );
   }
 }
