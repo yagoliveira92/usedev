@@ -5,7 +5,6 @@ class RatingModel {
   RatingModel({this.rate, this.count});
 
   RatingModel.fromJson(Map<String, dynamic> json) {
-    // CORREÇÃO AQUI:
     if (json['rate'] != null) {
       if (json['rate'] is int) {
         rate = (json['rate'] as int).toDouble();
