@@ -54,4 +54,29 @@ class ProductModel {
     }
     return data;
   }
+
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
+      id: map['id'],
+      title: map['title'],
+      price: map['price'],
+      description: map['description'],
+      category: map['category'],
+      image: map['image'],
+      rating: RatingModel(rate: map['rate'], count: map['count']),
+    );
+  }
+
+  Map<String, dynamic> toMapForDb() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'description': description,
+      'category': category,
+      'image': image,
+      'rate': rating?.rate,
+      'count': rating?.count,
+    };
+  }
 }
